@@ -15,6 +15,7 @@ void setup() {
   stepper2.setCurrentPosition(0);
 }
 
+
 void loop() {
   stepper1.moveTo(800); // Set desired move: 800 steps (in quater-step resolution that's one rotation)
   stepper1.runToPosition(); // Moves the motor to target position w/ acceleration/ deceleration and it blocks until is in position
