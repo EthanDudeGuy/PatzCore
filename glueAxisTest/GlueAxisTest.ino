@@ -70,7 +70,7 @@ void updateControls(){
       while(digitalRead(limitSwitchPinNear) == 0){
         moveMotor();
       }
-      stepperY.step(-(4*stepsPerRev));
+      stepperY.step(-(stepsPerRev)); //doesn't increment position but moves away from switch before next initialization and run
       flag = 0;
     }
   }
