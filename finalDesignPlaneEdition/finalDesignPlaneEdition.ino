@@ -85,6 +85,8 @@ void loop() {
     case 3:
       stack();
       initializeX();
+      delay(500);
+      stepperX.setSpeed(600);
     default:
       break;
   }
