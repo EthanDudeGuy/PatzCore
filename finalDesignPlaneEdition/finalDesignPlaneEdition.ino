@@ -33,10 +33,10 @@ boolean motorRunX = false; //true will allow steppers to run
 char motorDirectionX = 'R'; //from top view. R = RIGHT = up (with NEMA on bottom)
 
 boolean motorRunY = false; //true will allow steppers to run
-char motorDirectionY = 'R'
+char motorDirectionY = 'R';
 
 boolean motorRunZ = false; //true will allow steppers to run
-char motorDirectionZ = 'R'
+char motorDirectionZ = 'R';
 
 double positionY; //vertical
 double positionX; //horizontal
@@ -54,7 +54,7 @@ Stepper stepperZ(stepsPerRev, ?, ?);  //undefined pins
 void setup() {
   stepperX.setSpeed(20); //slow initially for homing sequence
   Serial.begin(9600);
-  pinMode(7, INPUT_PULLDOWN);
+  pinMode(7, INPUT_PULLDOWN); //need to switch to pullups and switch state conditionals for all switches
   pinMode(6, INPUT_PULLDOWN);
   pinMode(5, INPUT_PULLDOWN);
   pinMode(4, INPUT_PULLDOWN);
@@ -94,7 +94,7 @@ void loop() {
 
 void stack() {
   if (flag == 3) {
-    for (int i = 0, i < 4, i++) {
+    for (int i = 0; i < 4; i++) {
       moveMotorX();
     }
     stepperZ.step(stepsToTurnBed);
@@ -108,7 +108,7 @@ void stack() {
       readSwitches();
     }
     motorDirectionX = 'R';
-    for (int i = 0, i < 4, i++) {
+    for (int i = 0; i < 4; i++) {
       moveMotorX();
     }
     stepperZ.step(-(stepsToTurnBed));
@@ -125,7 +125,7 @@ void updateControlsX() {
     motorRunX = false;
     motorRunZ = false;
   }
-  if (position >= 15 && flag == 1) { //positional placeholder value (15), calculate position where rig should stop for gluing
+  if (positionX >= 15 && flag == 1) { //positional placeholder value (15), calculate position where rig should stop for gluing
     motorRunX = false;
     readSwitches();
     while (startButtonState == 0) {
@@ -145,7 +145,7 @@ void updateControlsY() {
     motorRunX = false;
     motorRunZ = false;
   }
-  if (position >= 15) { //placeholder position
+  if (positionY >= 15) { //placeholder position
     motorRunY = false;
     readSwitches();
     while(startButtonState == 0) {
@@ -170,7 +170,7 @@ void initializeX() {
       motorRunX = true;
       delay(20);
       readSwitches();
-      while(limitSwitchNearX == 0 && eStopState == 0) { //move down until limit switch pressed
+      while(limitSwitchStateNearX == 0 && eStopState == 0) { //move down until limit switch pressed
         if (eStopState == 1) {
           Serial.println("EMERGENCY STOP TRIGGERED");
           motorRunY = false;
@@ -189,7 +189,7 @@ void initializeX() {
       }
       positionX = 0;
       Serial.println("POSITION 0 SET");
-      moveMotor();
+      moveMotorX();
       delay(500);
       flag = 1;
     }
@@ -201,7 +201,7 @@ void initializeY() {
   motorRunY = true;
   stepperY.setSpeed(20);
   readSwitches();
-  Serial.println("HOMING Y")
+  Serial.println("HOMING Y");
   while(limitSwitchStateNearY == 0 && eStopState == 0) {
     if (eStopState == 1) {
       Serial.println("EMERGENCY STOP TRIGGERED");
@@ -219,7 +219,7 @@ void initializeY() {
     stepperX.step(-(stepsPerRev));
   }
   positionY = 0;
-  Serial.println("Y POSITION 0 SET")
+  Serial.println("Y POSITION 0 SET");
   moveMotorY();
   stepperY.setSpeed(600);
   delay(500);
