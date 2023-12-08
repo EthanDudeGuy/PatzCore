@@ -99,7 +99,7 @@ void stack() {
   while (positionZ <= 0.74) {
     moveMotorZ();
   }
-  while (positionX >= (-65 + (0.5 * numSheetsStacked))) {
+  while (positionX >= (-65 + (0.25 * numSheetsStacked))) {
     moveMotorX();
   }
   readSwitches();
