@@ -3,9 +3,8 @@ Arduino Software as well as a review of our methods and prorgress through this p
 
 Mechanical Hardware:
 
-Digital Electronics:
+Digital Electronics: TB6600 Stepper Drivers, arduino Mega, limit switches, Nema23s, Nema17s
 
-Software Overview:
-  -We opted to utilize the AccelStepper Library to perform coordinated movements of the NEMA23 stepper motors
+Software Overview: C++ and Arduino library <stepper.h>
 
 
